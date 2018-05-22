@@ -6,10 +6,11 @@ from flask import abort, make_response # 页面相应操作
 from flask import session, escape # 会话 
 from flask import flash # 闪现 
 import os, datetime, random, sys # 系统 时间 随机
-import Queue
-import pytesseract  
+import Queue # 队列变量
 from PIL import Image  # 图片
-from pyocr import pyocr
+from pyocr import pyocr # 文字识别
+import urllib2 # 远程访问
+import re # 正则匹配
 
 app = Flask(__name__)
 APP_PATH = os.getcwd() # 根路径
@@ -175,7 +176,7 @@ def study_queue():
 # Python之图片OCR识别
 @app.route('/study_ocr')
 def study_ocr():
-    file = STORAGE_FOLDER + "/test5.png"
+    file = STORAGE_FOLDER + "/test4.png"
     os.environ['NLS_LANG'] = 'SIMPLIFIED CHINESE_CHINA.UTF8'
     tools = pyocr.get_available_tools()[:]
     if len(tools) == 0:
@@ -184,6 +185,18 @@ def study_ocr():
     text = tools[0].image_to_string(image, lang='eng')
     return text
 
+# python 的爬虫测试
+# 测试抓取页面中所有的图片列表
+@app.route('/study_pachong')
+def study_pachong():
+    allurl = 'https://list.tmall.com/search_product.htm?spm=a220m.1000858.0.0.e4ab3ad6uDcodT&s=0&q=%D4%CB%B6%AF%BF%E3+%C4%D0&sort=s&style=g&from=..pc_1_suggest&suggest=0_3&type=pc#J_Filter'
+    response = urllib2.urlopen(allurl)
+    html = response.read().decode('gb2312')
+    imglist = re.findall(r"img.alicdn.com(.*?)jpg", html)
+    showstr = ''
+    for img in imglist:
+        showstr += 'http://img.alicdn.com' + img + 'jpg' + '<br/>'
+    return showstr
 
 if __name__ == '__main__':
     app.secret_key = 'zlgcg'
