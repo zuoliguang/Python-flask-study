@@ -11,6 +11,7 @@ from PIL import Image  # 图片
 from pyocr import pyocr # 文字识别
 import urllib2 # 远程访问
 import re # 正则匹配
+from bs4 import BeautifulSoup
 
 app = Flask(__name__)
 APP_PATH = os.getcwd() # 根路径
@@ -185,18 +186,25 @@ def study_ocr():
     text = tools[0].image_to_string(image, lang='eng')
     return text
 
-# python 的爬虫测试
-# 测试抓取页面中所有的图片列表
+# python 的爬虫
+# 抓取页面中所有的指定图片列表
 @app.route('/study_pachong')
 def study_pachong():
     allurl = 'https://list.tmall.com/search_product.htm?spm=a220m.1000858.0.0.e4ab3ad6uDcodT&s=0&q=%D4%CB%B6%AF%BF%E3+%C4%D0&sort=s&style=g&from=..pc_1_suggest&suggest=0_3&type=pc#J_Filter'
     response = urllib2.urlopen(allurl)
     html = response.read().decode('gb2312')
-    imglist = re.findall(r"img.alicdn.com(.*?)jpg", html)
+    soup = BeautifulSoup(html, 'html.parser')
     showstr = ''
+    imglist = soup.find_all('img')
     for img in imglist:
-        showstr += 'http://img.alicdn.com' + img + 'jpg' + '<br/>'
+        if img.has_attr('data-ks-lazyload'):
+            showstr += '<img src="https:' + img.get('data-ks-lazyload') + '" />' + '<br/>'
     return showstr
+
+# 测试
+@app.route('/study_test')
+def study_test():
+    return 'aaaaaaa'
 
 if __name__ == '__main__':
     app.secret_key = 'zlgcg'
