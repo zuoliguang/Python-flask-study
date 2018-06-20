@@ -7,7 +7,7 @@ import os
 # os.system(os.getcwd() + '/app/LogController.py') 
 
 # 学习项目
-# os.system(os.getcwd() + '/app/StudyController.py') 
+os.system(os.getcwd() + '/app/StudyController.py') 
 
 # 爬虫项目
-os.system(os.getcwd() + '/app/NikeController.py') 
+# os.system(os.getcwd() + '/app/NikeController.py') 

@@ -5,7 +5,7 @@ from flask import render_template, redirect # 页面输出跳转
 from flask import abort, make_response # 页面相应操作
 from flask import session, escape # 会话 
 from flask import flash # 闪现 
-import os, datetime, random, sys # 系统 时间 随机
+import os, time, datetime, random, sys # 系统 时间 随机
 import Queue # 队列变量
 from PIL import Image  # 图片
 from pyocr import pyocr # 文字识别
@@ -204,7 +204,74 @@ def study_pachong():
 # 测试
 @app.route('/study_test')
 def study_test():
-    return 'aaaaaaa'
+    # -------------------------------
+    # a = True and True
+    # b = True and False
+    # c = True or False
+    # d = False or False
+    # e = not True
+    # return str(e) 
+    # -------------------------------
+    # items = [1,2,3,4,5,6,7,8,9]
+    # new = []
+    # while len(items)>0:
+    #     # pop(0)正序取值,pop(-1)倒序取值.
+    #     it = items.pop(-1)
+    #     new.append(it)
+    # return str(new)
+    # -------------------------------
+    # a = 0
+    # while True:
+    #     a += 1
+    #     # continue,break
+    #     break
+    # return str(a)
+    # ------------------------------
+    # errHTML = '''
+    # <HTML><HEAD><TITLE>
+    # Friends CGI Demo</TITLE></HEAD>
+    # <BODY><H3>ERROR</H3>
+    # <B>%s</B><P>
+    # <FORM><INPUT TYPE=button VALUE=Back
+    # ONCLICK="window.history.back()"></FORM>
+    # </BODY></HTML>
+    # '''
+    # html = errHTML % 'hello_error, 你好, coder!'
+    # return html
+    # -------------------------------
+    # d = {'a':123, 'b':456}
+    # return str(d['b'])
+    # -------------------------------
+    # timestemp = time.time() # 时间戳
+    # localtime = time.localtime(time.time()) # 本地时间
+    # formattime = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()) # 格式化时间
+    # return formattime
+    # -------------------------------
+    # file = STORAGE_FOLDER + "/test.txt"
+    # wdom = open(file, 'w+')
+    # wdom.write("zuoliguang\nwelcome!") # 内容写入()
+    # wdom.close()
+    # # 在 write 内容后，直接 read 文件输出会为空，是因为指针已经在内容末尾
+    # # 可以先 close 文件，open 后再读取
+    # rdom = open(file, 'r')
+    # content = rdom.read()
+    # rdom.close()
+    # return content
+    # ----------------------------------
+    # try:
+    #     dom = open('/file.data')
+    #     dom.write("这是一个测试文件，用于测试异常!!")
+    # except Exception as e:
+    #     return str(e)
+    # else:
+    #     dom.close()
+    # return '操作成功'
+    # -----------------------------------
+    # pwd = os.getcwd()
+    # dirs = dir()
+    # return str(dirs)
+    # -----------------------------------
+    return ''
 
 if __name__ == '__main__':
     app.secret_key = 'zlgcg'
